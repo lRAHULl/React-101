@@ -1,18 +1,25 @@
+// JSX - javascript xml
 console.log("The App is running!");
 
-// JSX - javascript xml
+// if - statements
+// ternary operators
+// logical and operators
+
 var app = {
   title: "React 101",
-  subTitle: "This is JSX from app.js!"
+  subTitle: "This is JSX from app.js!",
+  options: ['One','Two']
 };
 var template = (
   <div>
-    <h1>{app.title}</h1>
-    <p>{app.subTitle}</p>
-    <ol>
-      <li>One</li>
-      <li>Two</li>
-    </ol>
+    <h1> {app.title} </h1>
+    {app.subTitle ? <p> {app.subTitle} </p> : false}
+    {app.options.length ? <p>Here are your options</p> : <p>No Options</p>}
+    {
+      app.options.length  ? < ol >
+      <li> {app.options[0]} </li>
+      <li> {app.options[1]} </li>
+    </ol> : false}
   </div>
 );
 
@@ -21,16 +28,22 @@ var user = {
   age: 19,
   location: "Chennai"
 };
+
+function getLocation(location) {
+  if (location) {
+    return <p> City: {user.location} </p>;
+  }
+};
 var templateTwo = (
   <div>
-    <h1>{user.name}</h1>
-    <p>Age: {user.age}</p>
-    <p>City: {user.location}</p>
+    <h1> {user.name ? user.name : 'Anonymous'} </h1>
+    {user.age > 18 && <p>Age: {user.age}</p>}
+    <p>{getLocation(user.location)}</p>
   </div>
 );
 
 var appRoot = document.getElementById("app");
-// var appRootTwo = document.getElementById("me");
+var appRootTwo = document.getElementById("me");
 
 ReactDOM.render(templateTwo, appRootTwo);
 ReactDOM.render(template, appRoot);
