@@ -1,0 +1,12 @@
+{
+  "name": "React-101",
+  "version": "1.0.0",
+  "description": "Getting started with React.",
+  "main": "index.js",
+  "author": "Rahul",
+  "license": "MIT",
+  "dependencies": {
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1"
+  }
+}
