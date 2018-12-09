@@ -59,22 +59,31 @@ var template = React.createElement(
 );
 
 var user = {
-  name: "Rahul",
+  name: "Rahul P",
   age: 19,
   location: "Chennai"
 };
 
-function getLocation(location) {
-  if (location) {
-    return React.createElement(
-      "p",
-      null,
-      " City: ",
-      user.location,
-      " "
-    );
-  }
+// const getLocation = (location) => {
+//   if (location) {
+//     return <p> City: {user.location} </p>;
+//   }
+// };
+
+var getLocation = function getLocation(location) {
+  return location ? React.createElement(
+    "p",
+    null,
+    " City : ",
+    user.location,
+    " "
+  ) : undefined;
 };
+
+var getFirstName = function getFirstName(fullName) {
+  return fullName.split(' ')[0];
+};
+
 var templateTwo = React.createElement(
   "div",
   null,
@@ -82,7 +91,7 @@ var templateTwo = React.createElement(
     "h1",
     null,
     " ",
-    user.name ? user.name : 'Anonymous',
+    user.name ? getFirstName(user.name) : 'Anonymous',
     " "
   ),
   user.age > 18 && React.createElement(

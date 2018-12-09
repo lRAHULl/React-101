@@ -24,19 +24,25 @@ const template = (
 );
 
 const user = {
-  name: "Rahul",
+  name: "Rahul P",
   age: 19,
   location: "Chennai"
 };
 
-function getLocation(location) {
-  if (location) {
-    return <p> City: {user.location} </p>;
-  }
-};
+// const getLocation = (location) => {
+//   if (location) {
+//     return <p> City: {user.location} </p>;
+//   }
+// };
+
+const getLocation = (location) => location ? <p> City : {user.location} </p> : undefined;
+
+const getFirstName = (fullName) => fullName.split(' ')[0]
+
 const templateTwo = (
   <div>
-    <h1> {user.name ? user.name : 'Anonymous'} </h1>
+
+    <h1> {user.name ? getFirstName(user.name) : 'Anonymous'} </h1>
     {user.age > 18 && <p>Age: {user.age}</p>}
     <p>{getLocation(user.location)}</p>
   </div>
