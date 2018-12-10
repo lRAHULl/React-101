@@ -19,11 +19,11 @@ npm install
 Turn the live server on in the _public_ directory:
 
 ```bash
-live-server public
+live-server docs
 ```
 
 Turn the _babel-cli_ by typing the following _command_ in the terminal:
 
 ```bash
-babel src/app.js --out-file public/scripts/app.js --presets=env,react --watch
+babel src/app.jsx --out-file docs/scripts/app.js --presets=env,react --watch
 ```

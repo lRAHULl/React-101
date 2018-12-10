@@ -1,37 +1,124 @@
 'use strict';
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+// JSX - javascript xml
+console.log('The App is running!');
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+// if - statements
+// ternary operators
+// logical and operators
 
-var Person = function () {
-    function Person() {
-        var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'Anonymous';
-        var age = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 18;
+var app = {
+	title: 'React 101',
+	subTitle: 'Let me take your Decision.',
+	options: []
+};
 
-        _classCallCheck(this, Person);
+var onFormSubmit = function onFormSubmit(e) {
+	e.preventDefault();
+	var option = e.target.elements.option.value;
+	if (option) {
+		app.options.push(option);
+		e.target.elements.option.value = '';
+		console.log(app.options);
+	}
+	renderTemplate();
+};
 
-        this.name = name;
-        this.age = age;
-    }
+var onRemoveAll = function onRemoveAll() {
+	app.options = [];
+	console.log(app.options);
+	renderTemplate();
+};
 
-    _createClass(Person, [{
-        key: 'getGreeting',
-        value: function getGreeting() {
-            return 'Hi I am ' + this.name;
-        }
-    }, {
-        key: 'getDescription',
-        value: function getDescription() {
-            return this.name + ' is ' + this.age + ' old';
-        }
-    }]);
+var onRemoveLast = function onRemoveLast() {
+	app.options.pop();
+	console.log(app.options);
+	renderTemplate();
+};
 
-    return Person;
-}();
+var onMakeDecision = function onMakeDecision() {
+	var randNum = Math.floor(Math.random() * app.options.length);
+	var option = app.options[randNum];
+	alert(option);
+};
 
-var me = new Person('Rahul');
-console.log(me.getGreeting());
+var appRoot = document.getElementById('app');
 
-var other = new Person('Dhoni', 44);
-console.log(other.getDescription());
+var renderTemplate = function renderTemplate() {
+	var template = React.createElement(
+		'div',
+		null,
+		React.createElement(
+			'h1',
+			null,
+			' ',
+			app.title,
+			' '
+		),
+		app.subTitle ? React.createElement(
+			'p',
+			null,
+			' ',
+			app.subTitle,
+			' '
+		) : false,
+		app.options.length ? React.createElement(
+			'p',
+			null,
+			'Here are your options'
+		) : React.createElement(
+			'p',
+			null,
+			'No Options'
+		),
+		React.createElement(
+			'button', {
+				disabled: app.options.length === 0,
+				onClick: onMakeDecision
+			},
+			'What Should I Do'
+		),
+		app.options.length ? React.createElement(
+			'ol',
+			null,
+			app.options.map(function (option) {
+				return React.createElement(
+					'li', {
+						key: option
+					},
+					'Option: ',
+					option
+				);
+			})
+		) : false,
+		React.createElement(
+			'button', {
+				onClick: onRemoveLast
+			},
+			'Remove Last'
+		),
+		React.createElement(
+			'button', {
+				onClick: onRemoveAll
+			},
+			'Remove All'
+		),
+		React.createElement(
+			'form', {
+				onSubmit: onFormSubmit
+			},
+			React.createElement('input', {
+				type: 'text',
+				name: 'option'
+			}),
+			React.createElement(
+				'button',
+				null,
+				'Add Option'
+			)
+		)
+	);
+	ReactDOM.render(template, appRoot);
+};
+
+renderTemplate();
