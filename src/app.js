@@ -7,80 +7,62 @@ console.log("The App is running!");
 
 const app = {
   title: "React 101",
-  subTitle: "This is JSX from app.js!",
-  options: ['One','Two']
+  subTitle: "Let me take your Decision.",
+  options: []
 };
-const template = (
+
+const onFormSubmit = (e) => {
+  e.preventDefault();
+  const option = e.target.elements.option.value;
+  if (option) {
+    app.options.push(option);
+    e.target.elements.option.value = "";
+    console.log(app.options);
+  }
+  renderTemplate();
+};
+
+const onRemoveAll = () => {
+  app.options = [];
+  console.log(app.options)
+  renderTemplate();
+};
+
+const onRemoveLast = () => {
+  app.options.pop();
+  console.log(app.options);
+  renderTemplate();
+}
+
+const onMakeDecision = () => {
+  const randNum = Math.floor(Math.random() * app.options.length);
+  const option = app.options[randNum];
+  alert(option)
+}
+
+const appRoot = document.getElementById("app");
+
+const renderTemplate = () => {
+  const template = (
   <div>
     <h1> {app.title} </h1>
     {app.subTitle ? <p> {app.subTitle} </p> : false}
     {app.options.length ? <p>Here are your options</p> : <p>No Options</p>}
-    {app.options.length  ? < ol ><li> {app.options[0]} </li><li> {app.options[1]} </li></ol> : false}
+    <button disabled={app.options.length === 0} onClick={onMakeDecision}>What Should I Do</button>
+    {app.options.length ? (
+      <ol>
+        {app.options.map((option) => <li key={option}>Option: {option}</li>)}
+      </ol> ) : false
+  }
+  <button onClick={onRemoveLast}>Remove Last</button>
+  <button onClick={onRemoveAll}>Remove All</button>
+  <form onSubmit={onFormSubmit}>
+    <input type="text" name="option"/>
+    <button>Add Option</button>
+  </form>
   </div>
 );
-
-// const user = {
-//   name: "Rahul P",
-//   age: 19,
-//   location: "Chennai"
-// };
-
-// const getLocation = (location) => {
-//   if (location) {
-//     return <p> City: {user.location} </p>;
-//   }
-// };
-
-// const getLocation = (location) => location ? <p> City : {user.location} </p> : undefined;
-
-// const getFirstName = (fullName) => fullName.split(' ')[0]
-
-// const templateTwo = (
-//   <div>
-
-//     <h1> {user.name ? getFirstName(user.name) : 'Anonymous'} </h1>
-//     {user.age > 18 && <p>Age: {user.age}</p>}
-//     <p>{getLocation(user.location)}</p>
-//   </div>
-// );
-
-let count = 0;
-let addOne = () => {
-  count++;
-  console.log('addOne');
-  return renderCounterApp();
-}
-let minusOne = () => {
-  count--;
-  console.log('minusOne');
-  return renderCounterApp();
-};
-let reset = () => {
-  count = 0;
-  console.log('reset');
-  return renderCounterApp();
-};
-
-const renderCounterApp = () => {
-  var templateTwo = (
-    <div>
-      <h1>Count: {count}</h1>
-      <button onClick={addOne} >+1</button>
-      <button onClick={minusOne} >-1</button>
-      <button onClick={reset} >reset</button>
-    </div>
-  )
-  const appRoot = document.getElementById("app");
-  ReactDOM.render(templateTwo, appRoot);
+ReactDOM.render(template, appRoot);
 }
 
-var templateTwo = (
-  <div>
-    <h1>Count: {count}</h1>
-    <button onClick={addOne} >+1</button>
-    <button onClick={minusOne} >-1</button>
-    <button onClick={reset} >reset</button>
-  </div>
-)
-const appRoot = document.getElementById("app");
-ReactDOM.render(templateTwo, appRoot);
+renderTemplate();
