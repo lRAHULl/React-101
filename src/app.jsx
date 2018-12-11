@@ -2,18 +2,17 @@ class DecisionMaker extends React.Component {
 	render() {
 		const title = 'Decision Maker App';
 		const subTitle = 'Let the Computer take Your Decision';
-		let options = [1,2];
+		let options = [1, 2];
 		return (
 			<div>
 				<Header title={title} subTitle={subTitle} />
 				<Action />
-				<Options options={options}/>
+				<Options options={options} />
 				<AddOption />
 			</div>
 		);
 	}
 }
-
 
 class Header extends React.Component {
 	render() {
@@ -28,7 +27,7 @@ class Header extends React.Component {
 
 class Action extends React.Component {
 	onMakeDecision() {
-		alert('Picked!')
+		alert('Picked!');
 	}
 	render() {
 		return (
@@ -44,12 +43,11 @@ class Options extends React.Component {
 		super(props);
 		this.onRemoveAll = this.onRemoveAll.bind(this);
 	}
-	
-	
+
 	onRemoveAll() {
 		console.log(this.props.options);
 		this.props.options = [];
-		console.log(this.props.options);
+		// console.log(this.props.options);
 		// alert('Removed All!')
 	}
 	render() {
@@ -57,10 +55,10 @@ class Options extends React.Component {
 			<div>
 				<button onClick={this.onRemoveAll}>Remove All</button>
 				<p>{`There are ${this.props.options.length} options.`}</p>
-				
-				{
-					this.props.options.map(option => <Option key={option} optionText={option}/>)
-				}
+
+				{this.props.options.map(option => (
+					<Option key={option} optionText={option} />
+				))}
 
 				<button>Remove Last</button>
 			</div>
@@ -68,7 +66,7 @@ class Options extends React.Component {
 	}
 }
 
-class Option extends React.Component { 
+class Option extends React.Component {
 	render() {
 		return (
 			<div>
@@ -85,14 +83,13 @@ class AddOption extends React.Component {
 		super(props);
 		this.onFormSubmit = this.onFormSubmit.bind(this);
 	}
-	
+
 	onFormSubmit(e) {
 		e.preventDefault();
 		const option = e.target.elements.option.value.trim();
-		
+
 		if (option) {
-			e.target.elements.option.value = '';
-			console.log(this.props.options);
+			console.log(option);
 		}
 	}
 	render() {
@@ -107,5 +104,4 @@ class AddOption extends React.Component {
 	}
 }
 
-
-ReactDOM.render(<DecisionMaker />, document.getElementById("app"));
+ReactDOM.render(<DecisionMaker />, document.getElementById('app'));
