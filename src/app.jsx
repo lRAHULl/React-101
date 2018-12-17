@@ -1,13 +1,19 @@
 class DecisionMaker extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			options: []
+		}
+	}
+	
 	render() {
 		const title = 'Decision Maker App';
 		const subTitle = 'Let the Computer take Your Decision';
-		let options = [1, 2];
 		return (
 			<div>
 				<Header title={title} subTitle={subTitle} />
-				<Action />
-				<Options options={options} />
+				<Action hasOptions={this.state.options.length > 0} />
+				<Options options={this.state.options} />
 				<AddOption />
 			</div>
 		);
@@ -32,7 +38,7 @@ class Action extends React.Component {
 	render() {
 		return (
 			<div>
-				<button onClick={this.onMakeDecision}>What Should I Do ?</button>
+				<button onClick={this.onMakeDecision} disabled={!this.props.hasOptions}>What Should I Do ?</button>
 			</div>
 		);
 	}
