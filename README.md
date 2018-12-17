@@ -16,7 +16,7 @@ npm i -g babel-cli
 npm install
 ```
 
-Turn the live server on in the _public_ directory:
+Turn the live server on in the _docs_ directory:
 
 ```bash
 live-server docs
